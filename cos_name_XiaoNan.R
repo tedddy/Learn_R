@@ -14,4 +14,13 @@ myHttpheader<- c(
   "Accept-Charset"="GB2312,utf-8;q=0.7,*;q=0.7"
 )
 
-temp<- getURL("http://cos.name/",httpheader=myHttpheader)
+d=debugGatherer()
+temp<- getURL("http://cos.name/",httpheader=myHttpheader,debugfunction=d$update,verbose= TRUE)
+
+cHandle<- getCurlHandle(httpheader = myHttpheader)
+d = debugGatherer()
+temp <- getURL("http://cos.name/", .opts = list(debugfunction=d$update,verbose = TRUE), curl=cHandle)
+
+cat(d$value()[2])
+cat(d$value()[3])
+
