@@ -15,3 +15,9 @@ df_xts <- as.xts(as.data.frame(sample_matrix), important='very implortant inform
 str(df_xts)
 
 View(df_xts)
+
+# Creating new data: the xts constructor
+
+xts(1:10,Sys.Date()+1:10)
+
+View(xts(1:10,Sys.Date()+1:10))
