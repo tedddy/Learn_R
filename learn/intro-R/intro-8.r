@@ -1,0 +1,5 @@
+?beta()
+d_beta()
+?norm()
+pnorm(0)
+?pnorm()
