@@ -1,7 +1,7 @@
 # http://intelligenttradingtech.blogspot.hk/2010/03/modified-dochian-band-trend-follower.html
 # Refer to quantmod-vignette.pdf
 # http://www.quantmod.com/documentation/getSymbols.yahoo.html
-# troubleshooting 
+# troubleshooting: http://stackoverflow.com/questions/8562197/quantmod-save-tickers-to-files-in-a-loop-or-lapply
 
   library(quantmod)
   library(TTR)
