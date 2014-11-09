@@ -15,8 +15,12 @@
 
 # Pull tckr index data from Yahoo! Finance
 #  env_hk_3818 <- new.env()
-#  data_hk_3818 <- getSymbols(tckr, from = Sys.Date()-1095, auto.assign = FALSE) 
+#  data_hk_3818 <- getSymbols(tckr, from = Sys.Date()-1095, auto.assign = FALSE)
+#  ?rbind
   data_hk_3818 <- getSymbols(tckr, from = start, to = end, auto.assign = FALSE) 
+  data_hk_3818_rbind <- getSymbols(tckr, from = "2014-10-29", to = "2014-11-3", auto.assign = FALSE)
+  data_hk_3818 <- rbind(data_hk_3818, data_hk_3818_rbind)
+
 #  search()
   data_hk_3818[,6]
   data_hk_3818.cl <- data_hk_3818[,6]  
