@@ -64,6 +64,7 @@ ret <- ROC(data_hk_3818[,6])
 ret[1] <- 0
 
 # Calculate equity curves
+?cumprod
 
 eq_up <- cumprod(1+ret*sigup)
 eq_dn <- cumprod(1+ret*sigdn)
