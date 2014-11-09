@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}       %% A declaration of type
+\usepackage{geometry}               %% A LaTeX package
+%
+%\VignetteIndexEntry{Using the NMRpackage} %% Meta data lines
+%\VignettePackage{NMRpackage}
+%\VignetteDepends{zoo}
+%
+\title{NMRpackage}                  %% A LaTeX macro call
+\author{John Verzani}
+%
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\pkg}[1]{\texttt{#1}}
+\newcommand{\class}[1]{\texttt{#1}}
+\begin{document}                    %% Latex is between begin/end coument
+\maketitle                          %% Call a macro to make title
+%
+
+
+This is an example of how one writes a \textit{vignette} for an R
+package. Vignettes are typically Sweave documents that get processed
+and checked during R's ``build'' and ``check'' invocations.
+
+Sweave can be used to ``weave'' in R code For example, these commands
+will be executed and any output (none in this case) would be interspersed:
+<<>>=
+require(NMRpackage)
+f <- system.file("sampledata","degas.txt", package="NMRpackage")
+a <- readNMRData(f)
+b <- createZooObjects(a)
+m <- createStateMatrix(b)
+@ 
+
+The above uses the pkg{zoo} package, and creates a list, \code{b}, of \class{zoo} objects (irregular
+time series) and a multivariate \class{zoo} object, \code{m}, which
+can be accessed like a matrix.
+
+Our package provides a simple plotting function, \code{nmrTsPlot}. For plotting within
+Sweave, one can include the code within a float (Figure~\ref{fig:ts-plot}).
+
+\begin{figure}
+  \centering
+<<nmrTsPlot, fig=TRUE>>=
+out <- nmrTsPlot(m[, 1:4])
+print(out)
+@
+ \caption{Time series plot of first 4 mole rats (\code{nmrTsPlot(m[, 1:4])})}
+  \label{fig:ts-plot}
+\end{figure}
+
+Tables can be made in \LaTeX, but here we want to convert an R object
+into a table. The \pkg{xtable} package will make this easy. First, we
+create a table of times that mole rat \textit{i} is in the same bubble
+as mole rat \textit{j}.
+
+This code is technical, and we spare the reader by using \code{echo=FALSE}.
+
+<<makeTable, echo=FALSE>>=
+n <- 8
+ind <- combn(1:n, 2)
+d <- matrix(integer(n^2), nrow=n)
+f <- function(r) {
+  apply(ind, 2, function(ij) {
+    i <- ij[1]; j <- ij[2]
+    x <- r[i] == r[j]
+    if(!is.na(x))
+      d[j,i] <<- d[i,j] <<- d[i, j] + as.numeric(x)
+  })
+}
+
+out <- apply(m[, 1:n], 1, f)
+diag(d) <- "-"
+@ 
+
+Here we print the table. The \code{print} method for \class{xtable}
+objects will produce \LaTeX\/ code by default, so we inform Sweave
+that our output is of type ``tex'' and not R code using \code{results=tex}.
+
+<<echo=FALSE, results=tex>>=
+require(xtable)
+out <- xtable(d, caption="Number of events mole rat $i$ is in same chamber as mole rat $j$. Note that mole rats 1 and 2 share time, mole rats 1 and 6 share time, but not mole rats 2 and 6")
+print(out)
+@
+
+
+
+%
+\end{document}       

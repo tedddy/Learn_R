@@ -1,0 +1,4 @@
+export(readNMRData)
+export(createZooObjects)
+export(createStateMatrix)
+export(nmrTsPlot)
