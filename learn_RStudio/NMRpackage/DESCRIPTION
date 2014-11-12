@@ -1,0 +1,13 @@
+Package: NMRpackage
+Maintainer: John Verzani <jverzani@gmail.com>
+License: GPL-3
+Title: Functions for Naked Mole Rat analysis
+Depends: zoo, ggplot2
+Type: Package
+LazyLoad: yes
+Author: John Verzani
+Description: Package containing function for naked mole rat data
+Version: 1.0.1
+Date: 2011-06-25
+Collate: 'process.R' 'visualize.R'
+Packaged: 2012-02-22 22:47:59 UTC; verzani

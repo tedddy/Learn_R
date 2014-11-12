@@ -19,13 +19,13 @@ library(TTR)
 # Tedd: ruan this block for only once, and then comment them out. end
 
 # Tedd: Run the code below before market is open.
-# Tedd: generate yestoday's quote. Note: cannot get today's data from yahoo.
+# Tedd: generate yestoday's quote, and run the block below after the trade day. Note: cannot get today's data from yahoo. #doit
 tckr <- "3818.hk"
 data_hk_3818_rbind <- getSymbols(tckr, from = Sys.Date()-1, auto.assign = FALSE)
 data_hk_3818 <- rbind(data_hk_3818, data_hk_3818_rbind)
 
-#  search()
-data_hk_3818[,6]
+# search()
+# data_hk_3818[,6]
 data_hk_3818.cl <- data_hk_3818[,6]  
 data_hk_3818.H <- data_hk_3818[,2]  
 data_hk_3818.L <- data_hk_3818[,3]  
@@ -33,15 +33,14 @@ data_hk_3818.L <- data_hk_3818[,3]
 # Generate DonchianChannel object  
 # ?DonchianChannel
 
-
-dc <- DonchianChannel(cbind(data_hk_3818.H,data_hk_3818.L),n=10)
+dc <- DonchianChannel(cbind(data_hk_3818.H,data_hk_3818.L),n=20)
 
 ###################################################
 
 # Create the long (up) and short (dn) signals
 
-sigup <-ifelse(data_hk_3818.cl > dc[,2],1,0)
-sigdn <-ifelse(data_hk_3818.cl < dc[,2],-1,0)
+sigup <-ifelse(data_hk_3818.cl > dc[,1],1,0)
+sigdn <-ifelse(data_hk_3818.cl < dc[,1],-1,0)
 
 # Lag signals to align with days in market,
 # not days signals were generated
@@ -65,6 +64,7 @@ ret <- ROC(data_hk_3818[,6])
 ret[1] <- 0
 
 # Calculate equity curves
+?cumprod
 
 eq_up <- cumprod(1+ret*sigup)
 eq_dn <- cumprod(1+ret*sigdn)
