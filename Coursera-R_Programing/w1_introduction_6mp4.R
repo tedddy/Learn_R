@@ -139,3 +139,16 @@ names(x) <- c("foo", "bar", "norf")
 
 x
 
+x <- list (a=1,b=2,c=3)
+
+x
+
+m <- matrix(1:4,nrow=2,ncol=2)
+
+View(m)
+
+dimnames(m) <- list(c("a","b"),c("c","d"))
+
+m
+
+
