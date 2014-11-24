@@ -34,6 +34,14 @@ hk_0323_signals <- merge(hk_0323_buy,hk_0323_sell)
 # 显示卖点和买点
 View(hk_0323_signals)
 
+# how to coerce an xts object to numeric
+# sell_price <- hk_0323_signals[, "hk_0323_sell"]
+# sell_price
+# class(sell_price)
+# sell_price_numeric <- as.numeric(hk_0323_signals[1])[1]
+# sell_price_numeric
+# class(sell_price_numeric)
+
 # 把股票代码赋值给"code"
 "0588" -> code
 # 生成getSymbol函数从yahoo采集数据需要的代码格式。Note: hk stock cannot directly use the method in the tutorial given by the package author. Refer to signal_hk3818.R

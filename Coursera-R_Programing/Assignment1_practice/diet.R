@@ -45,7 +45,7 @@ andy_loss
 
 files <- list.files("diet_data")
 
-head(read.csv(files[3])) # not work
+# head(read.csv(files[3])) # not work
 
 files_full <- list.files("diet_data", full.names=TRUE)
 
@@ -74,4 +74,38 @@ dat_30 <- dat[which(dat$Day == 30), ]
 dat[, "Day"]
 
 dat[1, "Day"]
+
+median(dat_30$Weight)
+
+weightmedian <- function(directory, day) {
+    filelist <- list.files(directory, full.name = TRUE)
+    dat <- data.frame()
+    for (i in 1:5) {
+        dat <- rbind(dat, read.csv(files_full[i]))
+    }
+    dat_subset <- dat[which(dat[, "Day"] == day), ]
+    median(dat_subset[, "Weight"], na.rm=TRUE)
+}
+
+weightmedian("diet_data", 25)
+
+# Input objects: files_full & tmp (empty list)
+
+summary(files_full)
+tmp <- vector(mode = "list", length = length(files_full))
+
+summary(tmp)
+
+for (i in seq_along(files_full)) {
+    tmp[[i]] <- read.csv(files_full[i])
+}
+str(tmp)
+
+tmp_lapply <- lapply(files_full, read.csv)
+
+output <- do.call(rbind, tmp)
+
+str(output)
+
+output_lapply <- do.call(rbind, tmp)
 
