@@ -15,3 +15,5 @@ myHttpheader<- c(
 )
 ###以上这段不需要改
 rt_601318 <- getURL("http://hq.sinajs.cn/list=sh601318",httpheader=myHttpheader)
+
+rt_601318

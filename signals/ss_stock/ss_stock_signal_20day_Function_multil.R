@@ -1,9 +1,9 @@
 # 载入需要的Package
 library(quantmod)
 
-code_current <- c("600030", "600428", "600600", "601288", "601318", "601668") ## First code is put in " " to make the vector charactor vector, and the code with 0 at the first postion should be quoted. 
+code_current <- c("600030", "600048", "600428", "600600", "601288", "601318", "601668") ## First code is put in " " to make the vector charactor vector, and the code with 0 at the first postion should be quoted. 
 
-code_watch_RealEstate <- c("600256", 600048, 600383, 600663, 600648, 600748, 600266, 600325, 600657, 600675, 600638)
+code_watch_RealEstate <- c("600048", "600162", "600185", "600256", "600266", "600383", 600663, 600648, 600748, "600325", 600657, 600675, 600638, "600823")
 
 # , "3383", "3900": these two cannot be fetched.
 # Sys.Date()-30 -> start
