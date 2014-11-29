@@ -78,3 +78,19 @@ View(signal_RealEstate)
 signal_RealEstate_ordered <- signal_RealEstate[ order(signal_RealEstate[,5], signal_RealEstate[,6]), ]
 
 View(signal_RealEstate_ordered)
+
+
+code_watch_ShuiLi <- c("002051","002060","002131","002205","002457","002532","002586","002619","002671","300021","300137",)
+
+for (i in seq_along(code_watch_ShuiLi)) {
+    if (i == 1) {
+        signal_ShuiLi <- signal_BuySell(code_watch_ShuiLi[[i]])
+    }  else {
+        signal_ShuiLi <- rbind(signal_ShuiLi, signal_BuySell(code_watch_ShuiLi[[i]]))
+    }
+}
+View(signal_ShuiLi)
+
+signal_ShuiLi_ordered <- signal_ShuiLi[ order(signal_ShuiLi[,5], signal_ShuiLi[,6]), ]
+
+View(signal_ShuiLi_ordered)
