@@ -125,5 +125,3 @@ signal_GuQi_ordered <- signal_GuQi[ order(signal_GuQi[,5], signal_GuQi[,6]), ]
 
 View(signal_GuQi_ordered)
 
-?runMax
-
