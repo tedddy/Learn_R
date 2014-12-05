@@ -1,12 +1,16 @@
 # 载入需要的Package
 library(quantmod)
 
-code_current <- c("0338", "0588", "0670", 1065, 1157, 1266, 1618, 2357, 2727, 2866, 3818) ## First code is put in " " to make the vector charactor vector, and the code with 0 at the first postion should be quoted. 
-code_sold <- c("0323", "0493", "0981")
+code_current <- c("0111", "0218", "0388", "0665", "0998", "1065", "1359", "1375", "1788", "3818", "6818", "6837") ## First code is put in " " to make the vector charactor vector, and the code with 0 at the first postion should be quoted. 
+code_sold <- c("0323", "0338", "0493", "0588", "0670", "0981", "1157", "1266", "1618", "2357", "2727","2866" )
 
 watch_bank <- c("0939", "0998", "1288", "1393", "1988", "3328", "3618", "3968", "3988", "6818")
 watch_bank_2 <- c("0023", "0011", "1111", "2356")
-watch_financial <- c("0188", "0218", "0821", "0717", "0851", "1788", "6837", "6881", "6030")
+
+require(quantmod)
+watch_financial <- c("0111", "0188", "0218", "0227", "0290", "0388", "0665", "0717", "0812", "0821", "0851", "0952", "1359", "1375", "1788", "6030", "6837", "6881")
+view_results(watch_financial)
+
 watch_insurance <- c("1336", "2318", "2601", "2628", "6837")
 watch_RealEstate <- c("0119", "0123", "0152", "0270", "0272", "0283", "0291", "0363", "0392", "0410", "0588", "0604", "0813", "0817", "0917", "0960", "1109", "1138", "1668", "1813", "2007", "3333", "3377", "3380", "6837")
 
@@ -70,56 +74,14 @@ view_results <- function (tickers) {
     
     # View(signal_current)
     
-    signal_ordered <- signal[ order(signal[,5], signal[,6]), ]
+    signal_ordered_sell <- signal[ order(signal[,6], signal[,5]), ]    
+    View(signal_ordered_sell)
     
-    View(signal_ordered)
+    signal_ordered_buy <- signal[ order(signal[,5], signal[,6]), ]    
+    View(signal_ordered_buy)
 }
 
 view_results(code_current)
 view_results(watch_bank)
 view_results(watch_insurance)
-
-for (i in seq_along(code_current)) {
-    if (i == 1) {
-        signal_current <- signal_BuySell(code_current[[i]])
-    }  else {
-        signal_current <- rbind(signal_current, signal_BuySell(code_current[[i]]))
-    }
-}
-
-# View(signal_current)
-
-signal_current_ordered <- signal_current[ order(signal_current[,5], signal_current[,6]), ]
-
-View(signal_current_ordered)
-
-
-for (i in seq_along(watch_RealEstate)) {
-    if (i == 1) {
-        signal_RealEstate <- signal_BuySell(watch_RealEstate[[i]])
-    }  else {
-        signal_RealEstate <- rbind(signal_RealEstate, signal_BuySell(watch_RealEstate[[i]]))
-    }
-}
-
-# View(signal_RealEstate)
-
-signal_RealEstate_ordered <- signal_RealEstate[ order(signal_RealEstate[,5], signal_RealEstate[,6]), ]
-
-View(signal_RealEstate_ordered)
-
-for (i in seq_along(watch_financial)) {
-    if (i == 1) {
-        signal_financial <- signal_BuySell(watch_financial[[i]])
-    }  else {
-        signal_financial <- rbind(signal_financial, signal_BuySell(watch_financial[[i]]))
-    }
-}
-
-# View(signal_financial)
-
-signal_financial_ordered <- signal_financial[ order(signal_financial[,5], signal_financial[,6]), ]
-
-View(signal_financial_ordered)
-
-
+view_results(watch_RealEstate)
