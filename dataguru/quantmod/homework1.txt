@@ -1,0 +1,41 @@
+# 获取四只股票的数据（Fetch data for questions.）
+GuPiaoJi <- c("AAPL","MSFT","ORCL","GOOG")
+getSymbols(GuPiaoJi, from = "2011-01-01", to= Sys.Date())
+
+# 问题1（Question 1）
+AAPL_subset <- AAPL['2013-01-01::2013-10-30']
+totalVolume <- sum(AAPL_subset[,5])
+View(totalVolume)
+
+# 问题2（Question 2）
+dailyReturn_AAPL <- dailyReturn(AAPL, type="arithmetic")
+AAPL_and_return <- merge(AAPL, dailyReturn_AAPL)
+# AAPL_and_return_biger_than_2 <- AAPL_and_return[AAPL_and_return[,7] > 0.02]
+# AAPL_and_return_biger_than_2
+AAPL_and_return_biger_than_5 <- AAPL_and_return[AAPL_and_return[,7] > 0.05]
+View(AAPL_and_return_biger_than_5)
+
+AAPL.Open AAPL.High AAPL.Low AAPL.Close AAPL.Volume AAPL.Adjusted
+2011-08-09    361.30    374.61   355.00     374.01   270645900         50.60
+2011-10-10    379.09    388.81   378.21     388.81   110628700         52.60
+2012-01-25    454.44    454.45   443.73     446.66   239578500         60.43
+2012-04-17    578.94    610.00   571.91     609.70   256382000         82.48
+2012-04-25    615.64    618.00   606.00     610.00   226444400         82.52
+2012-05-21    534.50    561.54   534.05     561.28   157776500         75.93
+2012-11-19    540.71    567.50   539.88     565.73   205829400         77.21
+2013-07-24    438.93    444.59   435.26     440.51   147984200         60.87
+2014-04-24    568.21    570.00   560.73     567.77   189977900         79.91
+           daily.returns
+2011-08-09    0.05888848
+2011-10-10    0.05140617
+2012-01-25    0.06243905
+2012-04-17    0.05097133
+2012-04-25    0.08874134
+2012-05-21    0.05826012
+2012-11-19    0.07210810
+2013-07-24    0.05136161
+2014-04-24    0.08198190
+
+苹果公司在2012-01-25的股价增加了0.06243905。在网上搜寻苹果公司在2012-01-25的新闻，可以知道这天发布财报（http://tech.sina.com.cn/it/2012-01-25/06006661589.shtml）。股价上涨是因为财报利好。苹果公司在2012-01-25的股价增加了0.08874134，同样是因为财报利好。（http://www.newhua.com/2012/0425/156722.shtml）
+通过对数据的观察，如果我们在第一次利好财报后，追入苹果股票，会获得很好的收益。但如果贪婪地在第二次财报后追入的话，会在短期内有比较大的损失。
+

@@ -29,7 +29,7 @@ getSymbols(GuPiaoJi, from = "2011-01-01", to= Sys.Date())
 # Question 1
 AAPL_subset <- AAPL['2013-01-01::2013-10-30']
 totalVolume <- sum(AAPL_subset[,5])
-totalVolume
+View(totalVolume)
 
 # Question 2
 # ?dailyReturn
