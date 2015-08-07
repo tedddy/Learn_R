@@ -39,3 +39,4 @@ nLL <- make.NegLogLik(normals, c(FALSE, 2))
 x <- seq(0.5, 1.5, len = 100)
 y <- sapply(x, nLL)
 plot(x, exp(-(y - min(y))), type = "l")
+

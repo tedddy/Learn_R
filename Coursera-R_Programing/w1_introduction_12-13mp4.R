@@ -6,6 +6,9 @@ x[2]
 x[1:4] # find the first four elements.
 x[x>"a"] # find elements which are greater than "a".
 u <- x>"a" # a logic vector to show whether the elements is greater than "a".
+
+u
+
 x[u] # subset a vector with a logic vector
 
 # Subsetting a Matrix
@@ -102,4 +105,8 @@ y[good]
 airquality[1:6,]
 good <- complete.cases(airquality)
 good
+airquality
+airquality[good,]
 airquality[good,][1:6,]
+
+
