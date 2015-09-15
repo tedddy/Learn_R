@@ -1,0 +1,31 @@
+# install.packages("xlsx")
+
+require(xlsx)
+require(RMySQL)
+dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying", host="192.168.137.172")
+dbSendQuery(dbh,'SET NAMES utf8 ')
+
+# workbook<-"http://www.csindex.com.cn/sseportal/ps/zhs/hqjt/csi/000905closeweight.xls"
+workbook_zz500<-"E:\\user_tony\\download\\000905closeweight.xls"
+
+zz500_weight_original<-read.xlsx(workbook_zz500,1) # 1表示sheet1 attributes(zz500_weight) dim(zz500_weight)
+
+zz500_weight<-zz500_weight_original[,c(1,2,5,9)]
+
+View(zz500_weight)
+
+names(zz500_weight)<-c("date","code_index","code",'weight') # names(zz500_weight)
+
+dbWriteTable(dbh, name='hs_s_zz500_weight', value=zz500_weight)
+
+workbook_hs300<-"E:\\user_tony\\download\\000905closeweight.xls"
+
+hs300_weight_original<-read.xlsx(workbook_hs300,1) # 1表示sheet1 attributes(hs300_weight) dim(hs300_weight)
+
+hs300_weight<-hs300_weight_original[,c(1,2,5,9)]
+
+View(hs300_weight)
+
+names(hs300_weight)<-c("date","code_index","code",'weight') # names(hs300_weight)
+
+dbWriteTable(dbh, name='hs_s_hs300_weight', value=hs300_weight)
