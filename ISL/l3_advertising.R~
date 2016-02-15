@@ -1,0 +1,5 @@
+advertise=read.csv("Advertising.csv")
+fix(advertise)
+lm.fit=lm(Sales~TV,data=advertise)
+summary(lm.fit)
+plot(lm.fit)

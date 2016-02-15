@@ -1,0 +1,7 @@
+advertise=read.csv("Advertising.csv",header =TRUE) 
+fix(advertise)
+lm.fit=lm(Sales~TV,data=advertise)
+summary(lm.fit)
+par(mfrow=c(2,2))
+plot(lm.fit)
+abline(lm.fit)

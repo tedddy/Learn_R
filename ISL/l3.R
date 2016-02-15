@@ -12,7 +12,7 @@ names(Boston)
 attach(Boston)
 lm.fit = lm(medv~lstat)
 lm.fit
-summary(lm.fit)
+summary(lm.fit) 
 names(lm.fit)
 lm.fit$coefficients
 coef(lm.fit)
@@ -39,3 +39,15 @@ plot(predict_lm.fit,residuals_lm.fit)
 plot(predict_lm.fit,rstudent(lm.fit))
 plot(hatvalues(lm.fit))
 which.max(hatvalues(lm.fit))
+
+# Multiple Linear Regression
+
+lm.fit=lm(medv~lstat+age,data=Boston)
+summary(lm.fit)
+library(car)
+# check library paths# .libPaths()
+vif(lm.fit)
+
+
+
+
