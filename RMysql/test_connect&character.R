@@ -7,3 +7,5 @@ dbGetQuery(dbh, "SELECT * FROM ying.hk_w;")
 res=dbSendQuery(dbh, "SELECT * FROM ying.hk_w;")
 dat=fetch(res)
 dat
+
+install.packages("RCurl")
