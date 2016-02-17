@@ -8,6 +8,8 @@ getSymbols("AAPL", src = "yahoo")
 candleChart(AAPL, theme = "white", subset = "2011-01-01::2012-12-31")
 addADX()
 
+head(AAPL)
+
 ADX_Data <- ADX(cbind(Hi(AAPL), Lo(AAPL), Cl(AAPL)), n = 14, maType = "EMA", wilder = TRUE)
 
 # 在2012年一月的时候，ADX走强，可以考虑买入股票；在2012年5月的时候，ADX走弱，可以考虑卖出股票。

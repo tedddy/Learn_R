@@ -65,6 +65,6 @@ view_results <- function (tickers) {
     View(signal_ordered_buy)
 }
 
-warrant <- c("16810")
+warrant <- c("15048")
 view_results(warrant)
 
