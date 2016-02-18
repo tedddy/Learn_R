@@ -1,3 +1,4 @@
+require(quantmod)
 # 从Yahoo下载数据
 CMCM <- getSymbols("CMCM", from = start, auto.assign = FALSE)
 
