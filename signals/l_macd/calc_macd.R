@@ -1,9 +1,23 @@
 require(quantmod)  # https://app.yinxiang.com/shard/s22/nl/4928451/cd48717b-a33a-4801-a646-71f25cd95c3f
 require(RMySQL)
-getSymbols("IBM", from = "2015-01-01", src = "yahoo")
+# getSymbols("IBM", from = "2015-01-01", src = "yahoo")
 ibm <- merge(Cl(IBM), MACD(Cl(IBM), 8, 17, 9, "EMA", FALSE))
 ibm$macdOsc <- ibm$macd - ibm$signal
 tail(ibm)
+
+data(ttrc)
+
+macd <- MACD( ttrc[,"Close"], 12, 26, 9, maType="EMA" )
+
+macd2 <- MACD( ttrc[,"Close"], 12, 26, 9, maType=list(list(SMA), list(EMA, wilder=TRUE), list(SMA)) )
+
+spy<-getSymbols(("SPY") , src = 'yahoo', from = '2007-01-01', auto.assign = T)
+
+spy<-cbind(SPY)
+SPY$SMI3MA <- SMI(SPY[,c("SPY.High","SPY.Low","SPY.Close")], maType=list(list(SMA), list(EMA, wilder=TRUE), list(SMA)) )
+SPY$SMI3MA_T <- Lag(SPY$SMI3MA  , k = 1 )
+tail(SPY)
+
 
 dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying_calc", host="192.168.137.172")
 

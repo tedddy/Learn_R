@@ -167,3 +167,59 @@ fj_60$macdOsc <- fj_60$macd - fj_60$signal
 
 View(tail(fj_60, n=12L))
 
+# beginning of 600153
+res=dbSendQuery(dbh, "select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '600153' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_600153 =fetch(res)
+rownames(data_600153) = data_600153[,1]
+data_xts_temp <- data_600153[,-1]
+data_xts_600153 <- as.xts(data_xts_temp)
+hs600153<-merge(Cl(data_xts_600153), MACD(Cl(data_xts_600153), 8, 17, 9, "EMA", FALSE))
+hs600153$macdOsc <- hs600153$macd - hs600153$signal        
+View(tail(hs600153, n=20L))
+# end of 600153
+
+# beginning of 600637
+res=dbSendQuery(dbh, "select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '600637' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_600637 =fetch(res)
+rownames(data_600637) = data_600637[,1]
+data_xts_temp <- data_600637[,-1]
+data_xts_600637 <- as.xts(data_xts_temp)
+hs600637<-merge(Cl(data_xts_600637), MACD(Cl(data_xts_600637), 8, 17, 9, "EMA", FALSE))
+hs600637$macdOsc <- hs600637$macd - hs600637$signal        
+View(tail(hs600637, n=20L))
+# end of 600637
+
+# beginning of 601328
+res=dbSendQuery(dbh, "select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '601328' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_601328 =fetch(res)
+rownames(data_601328) = data_601328[,1]
+data_xts_temp <- data_601328[,-1]
+data_xts_601328 <- as.xts(data_xts_temp)
+hs601328<-merge(Cl(data_xts_601328), MACD(Cl(data_xts_601328), 8, 17, 9, "EMA", FALSE))
+hs601328$macdOsc <- hs601328$macd - hs601328$signal        
+View(tail(hs601328), n=20L)
+# end of 601328
+
+# beginning of 600050
+res=dbSendQuery(dbh, "select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '600050' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_600050 =fetch(res)
+rownames(data_600050) = data_600050[,1]
+data_xts_temp <- data_600050[,-1]
+data_xts_600050 <- as.xts(data_xts_temp)
+hs600050<-merge(Cl(data_xts_600050), MACD(Cl(data_xts_600050), 8, 17, 9, "EMA", FALSE))
+hs600050$macdOsc <- hs600050$macd - hs600050$signal        
+View(tail(hs600050), n=20L)
+# end of 600050
+
+# beginning of 601989
+res=dbSendQuery(dbh, "select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '601989' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_601989 =fetch(res)
+rownames(data_601989) = data_601989[,1]
+data_xts_temp <- data_601989[,-1]
+data_xts_601989 <- as.xts(data_xts_temp)
+hs601989<-merge(Cl(data_xts_601989), MACD(Cl(data_xts_601989), 8, 17, 9, "EMA", FALSE))
+hs601989$macdOsc <- hs601989$macd - hs601989$signal        
+View(tail(hs601989))
+# end of 601989
+
+
