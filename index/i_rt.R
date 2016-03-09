@@ -27,7 +27,7 @@ hs000300_5<-merge(Cl(data_hs000300_5), MACD(Cl(data_hs000300_5), 8, 17, 9, "EMA"
 
 hs000300_5$macdOsc <- hs000300_5$macd - hs000300_5$signal           
 
-View(tail(hs000300_5, n=20L))
+View(tail(hs000300_5, n=24L))
 
 # query database 30 minutes interval
 data_hs000300_30 <- sqlQuery("SELECT dt as date, idi, close  FROM ying_calc.view_i_rt_hst_30 where `idi` = '000300' order by dt desc;")
@@ -44,7 +44,7 @@ hs000300_30<-merge(Cl(data_hs000300_30), MACD(Cl(data_hs000300_30), 8, 17, 9, "E
 
 hs000300_30$macdOsc <- hs000300_30$macd - hs000300_30$signal  
 
-View(tail(hs000300_30, n=18L))
+View(tail(hs000300_30, n=24L))
 
 # query database 60 minutes interval
 data_hs000300_60 <- sqlQuery("SELECT dt as date, idi, close  FROM ying_calc.view_i_rt_hst_60 where `idi` = '000300' order by dt desc;")
@@ -61,7 +61,9 @@ hs000300_60<-merge(Cl(data_hs000300_60), MACD(Cl(data_hs000300_60), 8, 17, 9, "E
 
 hs000300_60$macdOsc <- hs000300_60$macd - hs000300_60$signal   
 
-View(tail(hs000300_60, n=12L))
+View(tail(hs000300_60, n=24L))
+View(tail(hs000300_60, n=1000L))
+
 
 data_hs000016_5 <- sqlQuery("SELECT dt as date, close, volume, amount FROM ying_calc.index_rt_hst where `idi` = '000016' ORDER BY `dt` DESC LIMIT 500;") # query database 5 minutes interval
 
@@ -77,8 +79,8 @@ hs000016_5<-merge(Cl(data_hs000016_5), MACD(Cl(data_hs000016_5), 8, 17, 9, "EMA"
 
 hs000016_5$macdOsc <- hs000016_5$macd - hs000016_5$signal           
 
-View(tail(hs000016_5, n=20L))
-
+View(tail(hs000016_5, n=24L))
+View(tail(hs000016_5, n=88L))
 # query database 30 minutes interval
 data_hs000016_30 <- sqlQuery("SELECT dt as date, idi, close  FROM ying_calc.view_i_rt_hst_30 where `idi` = '000016' order by dt desc;")
 
@@ -94,7 +96,7 @@ hs000016_30<-merge(Cl(data_hs000016_30), MACD(Cl(data_hs000016_30), 8, 17, 9, "E
 
 hs000016_30$macdOsc <- hs000016_30$macd - hs000016_30$signal   
 
-View(tail(hs000016_30, n=18L))
+View(tail(hs000016_30, n=24L))
 
 # query database 60 minutes interval
 data_hs000016_60 <- sqlQuery("SELECT dt as date, idi, close  FROM ying_calc.view_i_rt_hst_60 where `idi` = '000016' order by dt desc;")
@@ -111,4 +113,6 @@ hs000016_60<-merge(Cl(data_hs000016_60), MACD(Cl(data_hs000016_60), 8, 17, 9, "E
 
 hs000016_60$macdOsc <- hs000016_60$macd - hs000016_60$signal   
 
-View(tail(hs000016_60, n=12L))
+View(tail(hs000016_60, n=24L))
+
+View(tail(hs000016_60, n=1000L))

@@ -10,6 +10,9 @@ Sys.Date()-28 -> start
 Sys.Date()-1 -> end
 
 # 从Yahoo下载数据
+getSymbols(tckr, from = start, to = end)
+
+
 hk_600359 <- getSymbols(tckr, from = start, to = end, auto.assign = FALSE)
 
 # 提取High列

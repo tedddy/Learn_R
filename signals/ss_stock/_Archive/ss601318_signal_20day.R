@@ -1,5 +1,6 @@
 # 载入需要的Package
 library(quantmod)
+require(RMySQL)
 
 # 把股票代码赋值给"code"
 "601318" -> code
@@ -10,7 +11,11 @@ Sys.Date()-28 -> start
 Sys.Date()-1 -> end
 
 # 从Yahoo下载数据
-hk_601318 <- getSymbols(tckr, from = start, to = end, auto.assign = FALSE)
+hs601318 <- getSymbols(tckr, from = start, to = end, auto.assign = FALSE)
+
+dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying_calc", host="192.168.137.172")
+
+dbWriteTable(dbh, 'hs601318', data, row.names = FALSE, overwrite = TRUE)
 
 # 提取High列
 hk_601318.H <- hk_601318[,2]

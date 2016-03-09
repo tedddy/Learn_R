@@ -1,5 +1,6 @@
 # Packages loading
 library(quantmod)
+library(RMySQL)
 
 p <- c("000002", "000039", "000338", "002024", "600019", "600030", "600048", "600109", , "601668") ## First code is put in " " to make the vector charactor vector, and the code with 0 at the first postion should be quoted. "600030", "601318", 
 
@@ -36,6 +37,10 @@ signal_BuySell <- function (code) {
   
   # Fetch data from Yahoo
   data <- getSymbols(tckr, from = start, to = end, auto.assign = FALSE)
+  
+  dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying_calc", host="192.168.137.172")
+  
+  dbWriteTable(dbh, 'temp', data, row.names = FALSE, overwrite = TRUE)
   
   # subset Adjusted Close column
   data.AC <- data[,6]
@@ -92,8 +97,15 @@ view_results(watch_splite)
 
 view_results(watch_GuQi)
 
+# e start
+
+# Set start date and end date
+Sys.Date()-30 -> start
+Sys.Date()-1 -> end
+
+data <- getSymbols("600256.SS", from = start, to = end, auto.assign = FALSE)
+
 temp <- signal_BuySell("600256")
 
-
-# view_results(watch_)
+# e end
 
