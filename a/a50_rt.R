@@ -8,7 +8,7 @@ require(RMySQL)
 sqlQuery <- function (query) {
     
     # creating DB connection object with RMysql package
-    DB <- dbConnect(MySQL(), user="gxh", password='locoy', dbname='ying_calc', host='192.168.137.172')
+    DB <- dbConnect(MySQL(), user="gxh", password='locoy', dbname='ying', host='192.168.137.172')
     
     # send Query to btain result set
     rs <- dbSendQuery(DB, query)
@@ -23,15 +23,15 @@ sqlQuery <- function (query) {
     return(result)
 }
 
-# dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying_calc", host="192.168.137.172")
+# dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying", host="192.168.137.172")
 
 # dbSendQuery(dbh,'SET NAMES utf8 ')
 
-# res=dbSendQuery(dbh, "select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '601318' order by `dt` desc limit 98) as a order by a.`dt`;")
+# res=dbSendQuery(dbh, "select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying`.`s_rt_hst` where ids = '601318' order by `dt` desc limit 98) as a order by a.`dt`;")
 
 # dbDisconnect(dbh)
 
-data_601318 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '601318' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_601318 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying`.`s_rt_hst` where ids = '601318' order by `dt` desc limit 98) as a order by a.`dt`;")
 
 rownames(data_601318) = data_601318[,1]
 
@@ -46,7 +46,7 @@ hs601318$macdOsc <- hs601318$macd - hs601318$signal
 View(tail(hs601318, n=20L))
 
 # beginning of 600030
-data_600030 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '600030' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_600030 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying`.`s_rt_hst` where ids = '600030' order by `dt` desc limit 98) as a order by a.`dt`;")
 rownames(data_600030) = data_600030[,1]
 data_xts_temp <- data_600030[,-1]
 data_xts_600030 <- as.xts(data_xts_temp)
@@ -56,7 +56,7 @@ View(tail(hs600030, n=20L))
 # end of 600030
 
 # beginning of 600036
-data_600036 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '600036' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_600036 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying`.`s_rt_hst` where ids = '600036' order by `dt` desc limit 98) as a order by a.`dt`;")
 rownames(data_600036) = data_600036[,1]
 data_xts_temp <- data_600036[,-1]
 data_xts_600036 <- as.xts(data_xts_temp)
@@ -66,7 +66,7 @@ View(tail(hs600036, n=20L))
 # end of 600036
 
 # beginning of 600016
-data_600016 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '600016' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_600016 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying`.`s_rt_hst` where ids = '600016' order by `dt` desc limit 98) as a order by a.`dt`;")
 rownames(data_600016) = data_600016[,1]
 data_xts_temp <- data_600016[,-1]
 data_xts_600016 <- as.xts(data_xts_temp)
@@ -76,7 +76,7 @@ View(tail(hs600016, n=20L))
 # end of 600016
 
 # beginning of 600000
-data_600000 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '600000' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_600000 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying`.`s_rt_hst` where ids = '600000' order by `dt` desc limit 98) as a order by a.`dt`;")
 rownames(data_600000) = data_600000[,1]
 data_xts_temp <- data_600000[,-1]
 data_xts_600000 <- as.xts(data_xts_temp)
@@ -86,7 +86,7 @@ View(tail(hs600000), n=20L)
 # end of 600000
 
 # beginning of 600016
-data_600016 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '600016' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_600016 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying`.`s_rt_hst` where ids = '600016' order by `dt` desc limit 98) as a order by a.`dt`;")
 rownames(data_600016) = data_600016[,1]
 data_xts_temp <- data_600016[,-1]
 data_xts_600016 <- as.xts(data_xts_temp)
@@ -96,7 +96,7 @@ View(tail(hs600016), n=20L)
 # end of 600016
 
 # beginning of 000002
-data_000002 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying_calc`.`s_rt_hst` where ids = '000002' order by `dt` desc limit 98) as a order by a.`dt`;")
+data_000002 <- sqlQuery("select a.`dt`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `close`, `volume`, `amount` FROM `ying`.`s_rt_hst` where ids = '000002' order by `dt` desc limit 98) as a order by a.`dt`;")
 rownames(data_000002) = data_000002[,1]
 data_xts_temp <- data_000002[,-1]
 data_xts_000002 <- as.xts(data_xts_temp)

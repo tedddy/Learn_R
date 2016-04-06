@@ -2,7 +2,7 @@ require(quantmod)
 require(RMySQL)
 
 sqlQuery <- function (query) {
-    DB <- dbConnect(MySQL(), user="gxh", password='locoy', dbname='ying_calc', host='192.168.137.172')
+    DB <- dbConnect(MySQL(), user="gxh", password='locoy', dbname='ying', host='192.168.137.172')
     rs <- dbSendQuery(DB, query)
     # get elements from result sets and convert to dataframe
     result <- fetch(rs, -1)
@@ -13,7 +13,7 @@ sqlQuery <- function (query) {
 }
 
 iclose5 <- function (idi) {
-    data <- sqlQuery(paste("SELECT dt as date, close, volume, amount FROM ying_calc.index_rt_hst where `idi` =",idi," ORDER BY `dt` DESC LIMIT 300;"))
+    data <- sqlQuery(paste("SELECT dt as date, close, volume, amount FROM ying.index_rt_hst where `idi` =",idi," ORDER BY `dt` DESC LIMIT 300;"))
     
     rownames(data) <- as.POSIXct(data[,1])
     
@@ -31,7 +31,7 @@ iclose5 <- function (idi) {
 }
 
 iclose30 <- function (idi) {
-    data <- sqlQuery(paste("SELECT dt as date, close, amount FROM ying_calc.view_i_rt_hst_30 where `idi` =",idi," ORDER BY `dt` DESC LIMIT 200;"))
+    data <- sqlQuery(paste("SELECT dt as date, close, amount FROM ying.view_i_rt_hst_30 where `idi` =",idi," ORDER BY `dt` DESC LIMIT 200;"))
     
     rownames(data) <- as.POSIXct(data[,1])
     
@@ -49,7 +49,7 @@ iclose30 <- function (idi) {
 }
 
 iclose60 <- function (idi) {
-    data <- sqlQuery(paste("SELECT dt as date, close, amount FROM ying_calc.view_i_rt_hst_60 where `idi` =",idi," ORDER BY `dt` DESC LIMIT 200;"))
+    data <- sqlQuery(paste("SELECT dt as date, close, amount FROM ying.view_i_rt_hst_60 where `idi` =",idi," ORDER BY `dt` DESC LIMIT 200;"))
     
     rownames(data) <- as.POSIXct(data[,1])
     
@@ -105,14 +105,6 @@ iclose60 <- function (idi) {
 # tckr <- c("^GSPC","YHOO","XLB")
 # lapply(tckr,buildhist,start="1995-01-01",end="2011-11-30")
 
-# 创业板指数
-m5_399006 <- iclose5('399006')
-View(tail(m5_399006,n=24L))
-m30_399006 <- iclose30('399006')
-View(tail(m30_399006,n=24L))
-m60_399006 <- iclose60('399006')
-View(tail(m60_399006,n=24L))
-
 # 中证金融
 m5_399934 <- iclose5('399934')
 View(tail(m5_399934,n=24L))
@@ -135,6 +127,40 @@ View(tail(m60_399959,n=24L))
 #View(tail(m30_399959,n=500L))
 #View(tail(m60_399959,n=500L))
 #str(m30_399959)
+
+# 国证食品指数
+m5_399396 <- iclose5('399396')
+m30_399396 <- iclose30('399396')
+m60_399396 <- iclose60('399396')
+View(tail(m5_399396,n=24L))
+View(tail(m30_399396,n=24L))
+View(tail(m60_399396,n=24L))
+View(m60_399396)
+
+# 创业板指数
+m5_399006 <- iclose5('399006')
+View(tail(m5_399006,n=24L))
+m30_399006 <- iclose30('399006')
+View(tail(m30_399006,n=24L))
+m60_399006 <- iclose60('399006')
+View(tail(m60_399006,n=24L))
+
+# 地产指数
+m5_000006 <- iclose5('000006')
+View(tail(m5_000006,n=24L))
+m30_000006 <- iclose30('000006')
+View(tail(m30_000006,n=24L))
+m60_000006 <- iclose60('000006')
+View(tail(m60_000006,n=24L))
+
+
+# 国证医药指数
+m5_399394 <- iclose5('399394')
+View(tail(m5_399394,n=24L))
+m30_399394 <- iclose30('399394')
+View(tail(m30_399394,n=24L))
+m60_399394 <- iclose60('399394')
+View(tail(m60_399394,n=24L))
 
 # 国企改革 399974
 m5_399974 <- iclose5('399974')
@@ -172,14 +198,7 @@ View(tail(m60_399975,n=24L))
 #View(tail(m60_399975,n=500L))
 #str(m30_399975)
 
-# 创业板指数
-m5_399006 <- iclose5('399006')
-m30_399006 <- iclose30('399006')
-m60_399006 <- iclose60('399006')
-View(tail(m5_399006,n=24L))
-View(tail(m30_399006,n=24L))
-View(tail(m60_399006,n=24L))
-View(m60_399006)
+
 
 
 # 中证金融

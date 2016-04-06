@@ -3,9 +3,9 @@ require(RMySQL)
 
 fun_i_macd_daily <- function (idi, limit = '66') {
     # setup connection to database
-    dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying_calc", host="192.168.137.172")
+    dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying", host="192.168.137.172")
     # make query 
-    query <- paste("SELECT dt as date, high as High, low as Low, close as Close, amount as Volume FROM ying_calc.index_xts where `idi` =",idi," and `dt` <> '0000-00-00' ORDER BY `dt` DESC LIMIT ", limit, ";") # Note that we use amount as volume in the xts since volume has no much meaning for an index.
+    query <- paste("SELECT dt as date, high as High, low as Low, close as Close, amount as Volume FROM ying.index_xts where `idi` =",idi," and `dt` <> '0000-00-00' ORDER BY `dt` DESC LIMIT ", limit, ";") # Note that we use amount as volume in the xts since volume has no much meaning for an index.
     # mysql result
     result <- dbSendQuery(dbh, query)
     # fetch data
@@ -14,7 +14,7 @@ fun_i_macd_daily <- function (idi, limit = '66') {
     rownames(ttrc) <- as.POSIXct(ttrc[,1])
     ttrc <- xts(ttrc[,-1], order.by=as.POSIXct(ttrc[,1]))
     # save ttrc to a file
-    save(ttrc, file= paste("xts", idi, ".rda", sep=""), ascii = FALSE)
+    # save(ttrc, file= paste("xts", idi, ".rda", sep=""), ascii = FALSE)
     # merge cl and macd for close 
     macd_cl <- merge(Cl(ttrc), MACD(Cl(ttrc), 11, 26, 9, "EMA", percent = TRUE))
     # change names of fields
@@ -64,7 +64,7 @@ fun_i_macd_daily <- function (idi, limit = '66') {
     # write data to a temp table of the database
     dbWriteTable(dbh, 'temp_i_macd', macd_data.frame, row.names = FALSE, overwrite = TRUE)
     # run a procedure to import data from temp table to permanent table.
-    dbSendQuery(dbh,'call ying_calc.i_macd_import();')
+    dbSendQuery(dbh,'call ying.i_macd_import();')
     # disconnect database
     dbDisconnect(dbh)
 }
@@ -77,9 +77,9 @@ fun_i_macd_daily <- function (idi, limit = '66') {
 
 #     fun_i_macd_daily <- function (idi, limit = '66') {
 #     # setup connection to database
-#     dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying_calc", host="192.168.137.172")
+#     dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying", host="192.168.137.172")
 #     # make query 
-#     query <- paste("SELECT dt as date, high as High, low as Low, close as Close, amount as Volume FROM ying_calc.index_xts where `idi` =",idi," ORDER BY `dt` DESC LIMIT ", limit, ";") # Note that we use amount as volume in the xts since volume has no much meaning for an index.
+#     query <- paste("SELECT dt as date, high as High, low as Low, close as Close, amount as Volume FROM ying.index_xts where `idi` =",idi," ORDER BY `dt` DESC LIMIT ", limit, ";") # Note that we use amount as volume in the xts since volume has no much meaning for an index.
 #     # mysql result
 #     result <- dbSendQuery(dbh, query)
 #     # fetch data
@@ -117,7 +117,7 @@ fun_i_macd_daily <- function (idi, limit = '66') {
 #     # write data to a temp table of the database
 #     dbWriteTable(dbh, 'temp_i_macd', macd_data.frame, row.names = FALSE, overwrite = TRUE)
 #     # run a procedure to import data from temp table to permanent table.
-#     dbSendQuery(dbh,'call ying_calc.i_macd_import();')
+#     dbSendQuery(dbh,'call ying.i_macd_import();')
 #     # disconnect database
 #     dbDisconnect(dbh)
 # }
@@ -130,15 +130,15 @@ fun_i_macd_daily <- function (idi, limit = '66') {
 #     limit <- '9999'
 #     
 #     # setup connection to database
-#     dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying_calc", host="192.168.137.172")
+#     dbh <- dbConnect(MySQL(), user="gxh", password="locoy", dbname="ying", host="192.168.137.172")
 #     # make query 
-#     query <- paste("SELECT dt as date, high as High, low as Low, close as Close, amount as Volume FROM ying_calc.index_xts where `idi` =",idi," ORDER BY `dt` DESC LIMIT ", limit, ";") # Note that we use amount as volume in the xts since volume has no much meaning for an index.
+#     query <- paste("SELECT dt as date, high as High, low as Low, close as Close, amount as Volume FROM ying.index_xts where `idi` =",idi," ORDER BY `dt` DESC LIMIT ", limit, ";") # Note that we use amount as volume in the xts since volume has no much meaning for an index.
 #     # mysql result
 #     result <- dbSendQuery(dbh, query)
 # 
 #     ttrc <- fetch(result, -1)
 
-# ttrc <- sqlQuery(paste("SELECT dt as date, high as High, low as Low, close as Close, amount as Volume FROM ying_calc.index_xts where `idi` =",idi," ORDER BY `dt` DESC LIMIT ", limit, ";")) # Note that we use amount as volume in the xts since volume has no much meaning for an index.
+# ttrc <- sqlQuery(paste("SELECT dt as date, high as High, low as Low, close as Close, amount as Volume FROM ying.index_xts where `idi` =",idi," ORDER BY `dt` DESC LIMIT ", limit, ";")) # Note that we use amount as volume in the xts since volume has no much meaning for an index.
 
 # converting ttrc to xts
 #     rownames(ttrc) <- as.POSIXct(ttrc[,1])
@@ -173,7 +173,7 @@ fun_i_macd_daily <- function (idi, limit = '66') {
 #     # write data to a temp table of the database
 #     dbWriteTable(dbh, 'temp_i_macd', macd_data.frame, row.names = FALSE, overwrite = TRUE)
 #     # run a procedure to import data from temp table to permanent table.
-#     dbSendQuery(dbh,'call ying_calc.i_macd_import();')
+#     dbSendQuery(dbh,'call ying.i_macd_import();')
 #     # disconnect database
 #     dbDisconnect(dbh)
 
@@ -199,11 +199,11 @@ fun_i_macd_daily <- function (idi, limit = '66') {
 # 
 # dbWriteTable(dbh, 'temp_i_macd_bl', macd_data.frame, row.names = FALSE, overwrite = TRUE)
 # 
-# dbSendQuery(dbh,'call ying_calc.i_macd_bl_archive_import();')
+# dbSendQuery(dbh,'call ying.i_macd_bl_archive_import();')
 # 
 # macd_data.frame <- tail(macd_data.frame, n=66L)
 # 
-# dbSendQuery(dbh,'call ying_calc.i_macd_bl_import();')
+# dbSendQuery(dbh,'call ying.i_macd_bl_import();')
 # 
 # dbDisconnect(dbh)
 
