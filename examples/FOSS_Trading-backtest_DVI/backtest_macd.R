@@ -5,35 +5,20 @@ require(quantmod)
 # pull SPX ttrc from Yahoo (getSymbols returns an xts object)
 # getSymbols("^GSPC")
 require(RMySQL)
-sqlQuery <- function (query) {
-  
-  # creating DB connection object with RMysql package
-  DB <- dbConnect(MySQL(), user="gxh", password='locoy', dbname='ying_calc', host='192.168.137.172')
-  
-  # send Query to btain result set
-  rs <- dbSendQuery(DB, query)
-  
-  # get elements from result sets and convert to ttrcframe
-  result <- fetch(rs, -1)
-  
-  # close db connection
-  dbDisconnect(DB)
-  
-  # return the ttrcframe
-  return(result)
-}
+source('~/lr/index/functions/sqlQuery_fun.R')
+
 ids <- '002183'
 # query <- paste("SELECT dt as date, high as High, low as Low, close as Close, volume as Volume FROM ying_calc.s_xts_adj where `ids` =",ids," ORDER BY `dt` DESC LIMIT 500;")
 
- ttrc <- sqlQuery(paste("SELECT dt as date, high as High, low as Low, close as Close, volume as Volume FROM ying_calc.s_xts_adj where `ids` =",ids," ORDER BY `dt` DESC LIMIT 500;"))
+# ttrc <- sqlQuery(paste("SELECT dt as date, high as High, low as Low, close as Close, volume as Volume FROM ying_calc.s_xts_adj where `ids` =",ids," ORDER BY `dt` DESC LIMIT 500;"))
 
 # converting ttrc to xts
-rownames(ttrc) <- as.POSIXct(ttrc[,1])
-ttrc <- xts(ttrc[,-1], order.by=as.POSIXct(ttrc[,1]))
+#   rownames(ttrc) <- as.POSIXct(ttrc[,1])
+#   ttrc <- xts(ttrc[,-1], order.by=as.POSIXct(ttrc[,1]))
 # save ttrc to a file
-save(ttrc, file= 'ttrc002183.rda', ascii = FALSE)
+# save(ttrc, file= 'ttrc002183.rda', ascii = FALSE)
 # load ttrc from a file
-# load("~/lr/examples/FOSS_Trading-backtest_DVI/ttrc002183.rda")
+load("~/lr/examples/FOSS_Trading-backtest_DVI/ttrc002183.rda")
 
 macd_cl <- merge(Cl(ttrc), MACD(Cl(ttrc), 11, 26, 9, "EMA"))
 

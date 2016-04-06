@@ -49,8 +49,7 @@ View(tail(hs600030, n=25L))
 # end of 600030
 
 # beginning of 600036
-res=dbSendQuery(dbh, "select a.`dt`, a.`open`, a.`high`, a.`low`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `open`, `high`, `low`, `close`, `volume`, `amount` FROM `ying_calc`.`s_xts_adj` where ids = '600036' order by `dt` desc limit 98) as a order by a.`dt`;")
-data_600036 =fetch(res)
+data_600036 <- dbSendQuery(dbh, "select a.`dt`, a.`open`, a.`high`, a.`low`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `open`, `high`, `low`, `close`, `volume`, `amount` FROM `ying_calc`.`s_xts_adj` where ids = '600036' order by `dt` desc limit 98) as a order by a.`dt`;")
 rownames(data_600036) = data_600036[,1]
 data_xts_temp <- data_600036[,-1]
 data_xts_600036 <- as.xts(data_xts_temp)
@@ -60,8 +59,7 @@ View(tail(hs600036, n=25L))
 # end of 600036
 
 # beginning of 600016
-res=dbSendQuery(dbh, "select a.`dt`, a.`open`, a.`high`, a.`low`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `open`, `high`, `low`, `close`, `volume`, `amount` FROM `ying_calc`.`s_xts_adj` where ids = '600016' order by `dt` desc limit 98) as a order by a.`dt`;")
-data_600016 =fetch(res)
+data_600016 <- dbSendQuery(dbh, "select a.`dt`, a.`open`, a.`high`, a.`low`, a.`close`, a.`volume`, a.`amount` from (SELECT `dt`, `open`, `high`, `low`, `close`, `volume`, `amount` FROM `ying_calc`.`s_xts_adj` where ids = '600016' order by `dt` desc limit 98) as a order by a.`dt`;")
 rownames(data_600016) = data_600016[,1]
 data_xts_temp <- data_600016[,-1]
 data_xts_600016 <- as.xts(data_xts_temp)
