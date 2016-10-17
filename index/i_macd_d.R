@@ -2,7 +2,7 @@ require(quantmod)
 require(RMySQL)
 
 
-source('~/lr/functions/sqlQuery_fun.R')
+source('~/lr/functions/i_macd_daily_fun.R')
 
 
 # fun_i_macd_daily('399934',limit = '9999')
